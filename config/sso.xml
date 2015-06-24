@@ -1,6 +1,4 @@
 <xml>
-
-
     <!-- for CAS-SSO -->
     <CasLoginUri>/login</CasLoginUri>
     <CasLogoutUri>/logout</CasLogoutUri>
