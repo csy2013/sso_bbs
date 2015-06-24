@@ -16,11 +16,11 @@ public class Const {
     // 本地开发环境上 data source 的配置
     public static String DEV_JDBC_URL = "jdbc:mysql://localhost:3306/bbs";
     public static String DEV_USER = "root";
-    public static String DEV_PASSWORD = "root";
+    public static String DEV_PASSWORD = "changsy20080226z";
     // 运行环境上 data source 的配置
     public static String JDBC_URL = "jdbc:mysql://localhost:3306/bbs";
     public static String USER = "root";
-    public static String PASSWORD = "root";
+    public static String PASSWORD = "changsy20080226z";
     // beetl
     public static String BEETL_ROOT_DIR = "/WEB-INF/beetl";
 

@@ -4,12 +4,14 @@
     <!-- for CAS-SSO -->
     <CasLoginUri>/login</CasLoginUri>
     <CasLogoutUri>/logout</CasLogoutUri>
-    <CasUrl>https://localhost:9443/cas</CasUrl>
+    <CasUrl>https://www.yuaoq.com/cas</CasUrl>
     <CasValidateUri>/p3/serviceValidate</CasValidateUri>
     <CasBaseHandler>org.ofbiz.sso.base.OFBizBaseAuthenticationHandler</CasBaseHandler>
     <CasTGTCookieName>CASTGC</CasTGTCookieName>
     <keyStoreType>JKS</keyStoreType>
-    <keyStorePath>/Users/changshengyong/javaProject/yuaoq/ofbiz/framework/base/config/ofbizssl.jks</keyStorePath>
+    <keyStorePath>/app/yuaoq/framework/base/config/ofbizssl.jks</keyStorePath>
     <keyStorePass>changeit</keyStorePass>
     <certificatePassword>changeit</certificatePassword>
+    <ServiceName>www.yuaoq.com</ServiceName>
+    <allowHosts>localhost,114.215.147.22,www.yuaoq.com,www.wxin.club,wxin.club,www.ohho.club,ohho.club</allowHosts>
 </xml>

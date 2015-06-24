@@ -20,6 +20,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -74,8 +75,14 @@ public class SSOServlet extends HttpServlet {
         String casUrl = UtilXml.childElementValue(rootElement, "CasUrl", "https://localhost:8443/cas");
         String loginUri = UtilXml.childElementValue(rootElement, "CasLoginUri", "/login");
         String validateUri = UtilXml.childElementValue(rootElement, "CasValidateUri", "/validate");
-        String serviceUrl = request.getRequestURL().toString();
-        String url = URLEncoder.encode(serviceUrl, "UTF-8");
+        String whiteHosts = UtilXml.childElementValue(rootElement,"allowHosts","localhost");
+
+        String serviceName = UtilXml.childElementValue(rootElement, "ServiceName", "www.yuaoq.com");
+
+        String requestURI = request.getRequestURI();
+        String url =  request.getScheme()+"://"+ serviceName+requestURI;
+//        String serviceUrl = request.getRequestURL().toString();
+         url = URLEncoder.encode(url, "UTF-8");
         boolean casLoggedIn = false;
         if (ticket == null) {
             // forward the login page to CAS login page
@@ -88,7 +95,7 @@ public class SSOServlet extends HttpServlet {
 
             HttpsURLConnectionFactory httpsURLConnectionFactory = new HttpsURLConnectionFactory();
 
-            httpsURLConnectionFactory.setHostnameVerifier(new WhitelistHostnameVerifier("localhost"));
+            httpsURLConnectionFactory.setHostnameVerifier(new WhitelistHostnameVerifier(whiteHosts));
             httpsURLConnectionFactory.setSSLConfiguration(getSSLConfig());
             httpsURLConnectionFactory.ignorSsl();// 此处处理信任所有的SSL证书
 //            SSLUtil.ignoreSsl();
@@ -114,7 +121,12 @@ public class SSOServlet extends HttpServlet {
                 casLoggedIn = true;
                 //String partyId = XmlUtils.getTextForElements(responseStr, "partyId").get(0);
                 String password1 = XmlUtils.getTextForElements(responseStr, "password").get(0);
-                String email = XmlUtils.getTextForElements(responseStr, "email").get(0);
+                List emails = XmlUtils.getTextForElements(responseStr, "email");
+                String email = "";
+                if(emails!=null && (!emails.isEmpty())) {
+                     email = XmlUtils.getTextForElements(responseStr, "email").get(0);
+                }
+
 
                 if (casLoggedIn && username != null) {
                     user = User.dao.getByEmailAndPassword(email,password1);
@@ -202,9 +214,10 @@ public class SSOServlet extends HttpServlet {
         setCookie("bbsID", null, 0, "/", null,response);
         String casUrl = UtilXml.childElementValue(rootElement, "CasUrl", "https://localhost:8443/cas");
         String logoutUri = UtilXml.childElementValue(rootElement, "CasLogoutUri", "/logout");
+        String serviceUrl = UtilXml.childElementValue(rootElement, "ServiceUrl", "http://wxin.club/bbs");
         try {
 //            response.sendRedirect(casUrl + logoutUri);
-            response.sendRedirect(casUrl + logoutUri + "?" + PARAM_SERVICE + "=http://localhost:8080/bbs");
+            response.sendRedirect(casUrl + logoutUri + "?" + PARAM_SERVICE + "="+serviceUrl);
         } catch (UnsupportedEncodingException e) {
         } catch (IOException e) {
         }
