@@ -214,10 +214,13 @@ public class SSOServlet extends HttpServlet {
         setCookie("bbsID", null, 0, "/", null,response);
         String casUrl = UtilXml.childElementValue(rootElement, "CasUrl", "https://localhost:8443/cas");
         String logoutUri = UtilXml.childElementValue(rootElement, "CasLogoutUri", "/logout");
-        String serviceUrl = UtilXml.childElementValue(rootElement, "ServiceUrl", "http://wxin.club/bbs");
+        String serviceUrl = UtilXml.childElementValue(rootElement, "ser", "http://wxin.club/bbs");
+        String serviceName = UtilXml.childElementValue(rootElement, "ServiceName", "www.yuaoq.com");
+        String requestURI = request.getRequestURI();
+        String url =  request.getScheme()+"://"+ serviceName+requestURI;
         try {
 //            response.sendRedirect(casUrl + logoutUri);
-            response.sendRedirect(casUrl + logoutUri + "?" + PARAM_SERVICE + "="+serviceUrl);
+            response.sendRedirect(casUrl + logoutUri + "?" + PARAM_SERVICE + "="+url);
         } catch (UnsupportedEncodingException e) {
         } catch (IOException e) {
         }

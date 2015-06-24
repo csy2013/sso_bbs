@@ -2,7 +2,7 @@
     <!-- for CAS-SSO -->
     <CasLoginUri>/login</CasLoginUri>
     <CasLogoutUri>/logout</CasLogoutUri>
-    <CasUrl>https://www.yuaoq.com/cas</CasUrl>
+    <CasUrl>https://114.215.147.22:9443/cas</CasUrl>
     <CasValidateUri>/p3/serviceValidate</CasValidateUri>
     <CasBaseHandler>org.ofbiz.sso.base.OFBizBaseAuthenticationHandler</CasBaseHandler>
     <CasTGTCookieName>CASTGC</CasTGTCookieName>
